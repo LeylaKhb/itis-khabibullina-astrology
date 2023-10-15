@@ -1,13 +1,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="button.css" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <title><@title></@title></title>
 </head>
 
 <body>
 <div id="header">
-<#--    <a href="/logout">Logout</a>-->
 </div>
 
 <div class="content1">

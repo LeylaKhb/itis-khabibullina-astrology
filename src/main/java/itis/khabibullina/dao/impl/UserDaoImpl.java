@@ -32,18 +32,20 @@ public class UserDaoImpl implements UserDao<User> {
     }
 
     @Override
-    public void update(String login, String password, Date dateOfBirth, String name, String city) {
+    public void update(String login, String password, Date dateOfBirth, String zodiacSign, String name, String city) {
         String sql = "UPDATE users SET " +
-                "name = ?, dateOfBirth = ?, city = ?, password = ?" +
+                "name = ?, dateOfBirth = ?, zodiacSign = ?, city = ?, password = ?" +
                 " WHERE login = ?;";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, name);
             preparedStatement.setDate(2, dateOfBirth);
-            preparedStatement.setString(3, city);
-            preparedStatement.setString(4, password);
-            preparedStatement.setString(5, login);
+            preparedStatement.setString(3, zodiacSign);
+            preparedStatement.setString(4, city);
+            preparedStatement.setString(5, password);
+            preparedStatement.setString(6, login);
+            LOGGER.info(String.valueOf(preparedStatement));
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -66,6 +68,7 @@ public class UserDaoImpl implements UserDao<User> {
                                     resultSet.getString("login"),
                                     resultSet.getString("password"),
                                     resultSet.getDate("dateOfBirth"),
+                                    resultSet.getString("zodiacSign"),
                                     resultSet.getString("name"),
                                     resultSet.getString("city")
 
@@ -81,14 +84,15 @@ public class UserDaoImpl implements UserDao<User> {
 
     @Override
     public void save(User user) {
-        String sql = "insert into users (name, dateOfBirth, city, login, password) values (?, ?, ?, ?, ?);";
+        String sql = "insert into users (name, dateOfBirth, zodiacSign, city, login, password) values (?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setDate(2, user.getDateOfBirth());
-            preparedStatement.setString(3, user.getCity());
-            preparedStatement.setString(4, user.getLogin());
-            preparedStatement.setString(5, user.getPassword());
+            preparedStatement.setString(3, user.getZodiacSign());
+            preparedStatement.setString(4, user.getCity());
+            preparedStatement.setString(5, user.getLogin());
+            preparedStatement.setString(6, user.getPassword());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -109,6 +113,7 @@ public class UserDaoImpl implements UserDao<User> {
                             resultSet.getString("login"),
                             resultSet.getString("password"),
                             resultSet.getDate("dateOfBirth"),
+                            resultSet.getString("zodiacSign"),
                             resultSet.getString("name"),
                             resultSet.getString("city")
 

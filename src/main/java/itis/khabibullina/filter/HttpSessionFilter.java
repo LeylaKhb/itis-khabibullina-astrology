@@ -14,7 +14,6 @@ import java.io.IOException;
 
 @WebFilter(filterName = "httpSessionFilter", urlPatterns = "/*")
 public class HttpSessionFilter implements Filter {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginServlet.class);
 
     @Override
@@ -25,12 +24,12 @@ public class HttpSessionFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+        HttpSession httpSession = httpServletRequest.getSession();
 
         Cookie[] cookies = httpServletRequest.getCookies();
         if (cookies != null) {
             for (Cookie c: cookies) {
                 if (c.getName().equals("login")) {
-                    HttpSession httpSession = httpServletRequest.getSession();
                     httpSession.setAttribute("login", c.getValue());
                     httpSession.setMaxInactiveInterval(60 * 60);
                 }

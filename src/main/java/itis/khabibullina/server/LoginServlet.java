@@ -28,26 +28,26 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
         String remember = req.getParameter("remember");
 
-
-        setSessionAndCookie(req, resp, login, remember);
-
         User user = userDao.get(login);
 
-        if (user.getPassword().equals(password)) {
-            resp.sendRedirect("/");
+        if (user != null) {
+            if (user.getPassword().equals(password)) {
+                setSessionAndCookie(req, resp, login, remember);
+                resp.sendRedirect("/");
+            } else {
+                req.setAttribute("wrongPassword", true);
+                req.getRequestDispatcher("login.ftl").forward(req, resp);
+            }
         } else {
-            resp.sendRedirect("/login");
+            req.setAttribute("userIsNull", true);
+            req.getRequestDispatcher("login.ftl").forward(req, resp);
         }
-
-
     }
 
     static void setSessionAndCookie(HttpServletRequest req, HttpServletResponse resp, String login, String remember) {
-        HttpSession httpSession = req.getSession();
+        HttpSession httpSession = req.getSession(false);
         httpSession.setAttribute("login", login);
         httpSession.setMaxInactiveInterval(60 * 60);
-
-        LOGGER.info(String.valueOf(remember));
 
         if (remember == null) return;
 

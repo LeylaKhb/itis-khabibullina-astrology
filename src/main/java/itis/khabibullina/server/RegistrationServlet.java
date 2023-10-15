@@ -19,11 +19,19 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PersonalAccountServlet.addAndUpdateUser(req, resp, "add");
         String login = req.getParameter("login");
-        String remember = req.getParameter("remember");
+        User user = userDao.get(login);
+        if (user != null) {
+            req.setAttribute("userExist", true);
+            req.getRequestDispatcher("registration.ftl").forward(req, resp);
+        } else {
+            PersonalAccountServlet.addAndUpdateUser(req, resp, "add");
+            String remember = req.getParameter("remember");
 
-        LoginServlet.setSessionAndCookie(req, resp, login, remember);
+            LoginServlet.setSessionAndCookie(req, resp, login, remember);
+            resp.sendRedirect("/");
+        }
+
 
     }
 }

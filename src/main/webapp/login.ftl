@@ -4,47 +4,52 @@
 <#macro title>Login page</#macro>
 
 <#macro content>
-    <div style="margin: 20px 50px">
-        <a href="/" style="height: 30px; width: 60px">
-            <button style="height: 30px; width: 60px; --tw-bg-opacity: 1;
-    background-color: rgb(221 160 223  / var(--tw-bg-opacity)); border-radius: 6px; --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity)); font-size: 16px;">
+    <div class="ml-3 mt-3">
+        <a href="/">
+            <button class="text-white rounded-md bg-pink-400 font-medium h-10 w-20 text-ml text-center" >
                 Back
             </button>
         </a>
     </div>
 
 
-    <div style="display: flex; justify-content: center; margin-top: 150px">
+    <div class="flex justify-center mt-20">
         <form action="login" method="post" >
-            <div style="font-weight: 500;
-        font-family: Inter var, sans-serif; font-size: 16px; --tw-text-opacity: 1;
-        color: rgb(221 160 223 / var(--tw-text-opacity));">
+            <div class="font-medium text-pink-400 text-ml">
                 Login:
-                <input type="text" name="login" placeholder="login"/>
+                <input type="text" name="login" placeholder="login"  class="border border-pink-400 bg-pink-50
+                rounded-md"/>
             </div>
             <br>
 
-            <div style="font-weight: 500;
-        font-family: Inter var, sans-serif; font-size: 16px; --tw-text-opacity: 1;
-        color: rgb(221 160 223 / var(--tw-text-opacity));">
+            <div class="font-medium text-pink-400 text-ml">
                 Password:
-                <input type="password" placeholder="password" name="password"/>
+                <input type="password" placeholder="password" name="password"  class="border border-pink-400
+                bg-pink-50 rounded-md"/>
             </div>
 
-            <div style="font-weight: 500; margin-top: 10px;
-        font-family: Inter var, sans-serif; font-size: 16px; --tw-text-opacity: 1;
-        color: rgb(221 160 223 / var(--tw-text-opacity));">
+            <div class="font-medium text-pink-400 text-ml mt-2">
                 <input type="checkbox" name="remember">Remember me</input>
             </div>
             <br>
 
 
-            <input type="submit" value="Login" style="height: 30px; width: 60px; --tw-bg-opacity: 1;
-        background-color: rgb(221 160 223  / var(--tw-bg-opacity)); border-radius: 6px; --tw-text-opacity: 1;
-        color: rgb(255 255 255 / var(--tw-text-opacity)); font-size: 16px;" />
+            <input type="submit" value="Login" class="text-white rounded-md bg-pink-400 font-medium h-12 w-24
+            mx-20 my-14 text-ml text-center" />
         </form>
     </div>
+
+     <#if userIsNull??>
+         <div class="text-pink-400 w-full flex items-center justify-center font-medium text-xl mt-12">
+             User is not found
+         </div>
+     </#if>
+
+    <#if wrongPassword??>
+        <div class="text-pink-400 w-full flex items-center justify-center font-medium text-xl mt-12">
+            Wrong password
+        </div>
+    </#if>
 
 </#macro>
 

@@ -22,7 +22,9 @@ public class MainPageServlet extends HttpServlet {
         }
         if (!cookieFound) {
             HttpSession httpSession = req.getSession(false);
-            req.setAttribute("sessionIsNull", httpSession == null);
+            if (httpSession.getAttribute("login") != null) {
+                req.setAttribute("sessionIsNull", false);
+            }
         }
 
         req.getRequestDispatcher("main.ftl").forward(req, resp);

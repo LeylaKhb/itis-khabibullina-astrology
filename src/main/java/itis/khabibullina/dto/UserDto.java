@@ -8,6 +8,8 @@ public class UserDto {
 
     private Date dateOfBirth;
 
+    private String zodiacSign;
+
     private String city;
 
     private String login;
@@ -15,9 +17,10 @@ public class UserDto {
     private String password;
 
 
-    public UserDto(String name, Date dateOfBirth, String city, String login, String password) {
+    public UserDto(String name, Date dateOfBirth, String zodiacSign, String city, String login, String password) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
+        this.zodiacSign = zodiacSign;
         this.city = city;
         this.login = login;
         this.password = password;
@@ -29,6 +32,10 @@ public class UserDto {
 
     public Date getDateOfBirth() {
         return dateOfBirth;
+    }
+
+    public String getZodiacSign() {
+        return zodiacSign;
     }
 
     public String getCity() {

@@ -25,4 +25,10 @@
         <url-pattern>*.ftl</url-pattern>
     </servlet-mapping>
 
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>client</param-value>
+    </context-param>
+
+
 </web-app>

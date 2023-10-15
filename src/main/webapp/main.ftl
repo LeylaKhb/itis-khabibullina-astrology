@@ -5,36 +5,45 @@
 
 
 <#macro content>
-    <div style="display: flex; height: 30px; align-items: center; justify-content: center; margin-top: 50px">
-        <#if sessionIsNull>
+    <div class="flex h-9 items-center justify-center mt-11">
+        <#if !sessionIsNull??>
             <a href="/registration">
-                <button style="height: 60px; width: 120px; font-weight: 500; --tw-bg-opacity: 1;
-    background-color: rgb(221 160 223  / var(--tw-bg-opacity)); margin: 100px 50px 100px; border-radius: 6px; --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity)); font-size: 20px;">Sign up</button>
+                <button class="text-white rounded-md bg-pink-400 font-medium h-14 w-28 mx-20 my-14 text-xl
+                text-center">Sign up</button>
             </a>
             <a href="/login">
-                <button style="height: 60px; width: 120px; font-weight: 500; --tw-bg-opacity: 1;
-    background-color: rgb(221 160 223  / var(--tw-bg-opacity)); margin: 100px 50px 100px; border-radius: 6px; --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity)); font-size: 20px;">
+                <button class="text-white rounded-md bg-pink-400 font-medium h-14 w-28 mx-20 my-14 text-xl text-center">
                     Sign in
                 </button>
             </a>
         </#if>
 
-        <#if !sessionIsNull>
+        <#if sessionIsNull??>
             <a href="/profile">
-                <img src="user-profile-icon.jpg" style="height: 30px; width: 60px" />
+                <img src="user-profile-icon.jpg" class="h-9 w-15" />
             </a>
         </#if>
     </div>
-    <div style="width: 100%; text-align: center;  font-weight: 500;
-    font-family: Inter var, sans-serif; font-size: 32px; margin-top: 50px; --tw-text-opacity: 1;
-    color: rgb(221 160 223 / var(--tw-text-opacity));
-}">
+
+    <div class="text-pink-400 w-full flex items-center justify-center font-medium text-2xl mt-12 ">
         ✨Astrology✨
     </div>
-    <div>
 
+    <div class="w-full items-center justify-between flex">
+        <div class="w-1/2 flex items-center justify-center text-pink-400 font-medium text-xl flex-col">
+            If you're not signed in:
+            <a href="/daily">
+                <button class="text-white rounded-md bg-pink-400 font-medium h-14 w-32 mx-20 my-14 text-xl
+                text-center">Daily phrase for all</button>
+            </a>
+        </div>
+        <div class="w-1/2 flex items-center justify-center text-pink-400 font-medium text-xl flex-col" >
+            If you're signed in:
+            <a href="/horoscope">
+                <button class="text-white rounded-md bg-pink-400 font-medium h-14 w-32 mx-20 my-14 text-xl
+                text-center">Horoscope for you sign</button>
+            </a>
+        </div>
     </div>
 </#macro>
 

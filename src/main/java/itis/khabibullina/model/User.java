@@ -12,23 +12,27 @@ public class User {
 
     private Date dateOfBirth;
 
+    private String zodiacSign;
+
     private String name;
 
     private String city;
 
-    public User(int id, String login, String password, Date dateOfBirth, String name, String city) {
+    public User(int id, String login, String password, Date dateOfBirth, String zodiacSign, String name, String city) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
+        this.zodiacSign = zodiacSign;
         this.name = name;
         this.city = city;
     }
 
-    public User(String login, String password, Date dateOfBirth, String name, String city) {
+    public User(String login, String password, Date dateOfBirth, String zodiacSign, String name, String city) {
         this.login = login;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
+        this.zodiacSign = zodiacSign;
         this.name = name;
         this.city = city;
     }
@@ -63,6 +67,14 @@ public class User {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getZodiacSign() {
+        return zodiacSign;
+    }
+
+    public void setZodiacSign(String zodiacSign) {
+        this.zodiacSign = zodiacSign;
     }
 
     public String getName() {

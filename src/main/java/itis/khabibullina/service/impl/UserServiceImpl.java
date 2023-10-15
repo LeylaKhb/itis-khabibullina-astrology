@@ -23,20 +23,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getAll() {
         return dao.getAll().stream().map(
-                u -> new UserDto(u.getName(), u.getDateOfBirth(), u.getCity(), u.getLogin(), u.getPassword())
+                u -> new UserDto(u.getName(), u.getDateOfBirth(), u.getZodiacSign(), u.getCity(), u.getLogin(), u.getPassword())
         ).collect(Collectors.toList());
     }
 
     @Override
     public UserDto get(int id) {
         User u = dao.get(id);
-        return new UserDto(u.getName(), u.getDateOfBirth(), u.getCity(), u.getLogin(), u.getPassword());
+        return new UserDto(u.getName(), u.getDateOfBirth(), u.getZodiacSign(), u.getCity(), u.getLogin(), u.getPassword());
     }
 
     @Override
     public UserDto get(String login) {
         User u = dao.get(login);
-        return new UserDto(u.getName(), u.getDateOfBirth(), u.getCity(), u.getLogin(), u.getPassword());
+        return new UserDto(u.getName(), u.getDateOfBirth(), u.getZodiacSign(), u.getCity(), u.getLogin(), u.getPassword());
     }
 
     @Override
