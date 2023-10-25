@@ -19,7 +19,7 @@ public class CommentDaoImpl implements CommentDao<Comment> {
 
     @Override
     public Comment get(int id) {
-        String sql = "SELECT * FROM POSTS WHERE id = " + id;
+        String sql = "SELECT * FROM comments WHERE id = " + id;
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);

@@ -15,7 +15,7 @@
     <div class="flex items-center justify-center mt-32 flex-col">
         <form action="editComment" method="post">
             <div class="text-xl text-pink-400 font-medium">
-                Edit post:
+                Edit comment:
             </div>
             <br>
 

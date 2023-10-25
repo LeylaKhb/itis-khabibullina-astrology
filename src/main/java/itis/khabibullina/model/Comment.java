@@ -28,6 +28,11 @@ public class Comment {
         this.content = content;
     }
 
+    public Comment(int id, String content) {
+        this.id = id;
+        this.content = content;
+    }
+
     public int getUserId() {
         return userId;
     }

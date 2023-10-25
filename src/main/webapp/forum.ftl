@@ -77,14 +77,19 @@
                                         <#if sessionLogin??>
                                             <#if c.userLogin == sessionLogin>
                                                 <br>
-                                                <button class="text-white rounded-md bg-pink-400
-                                        font-medium h-4 w-16 text-sm text-center">
-                                                    Edit
-                                                </button>
-                                                <button class="text-white rounded-md bg-pink-400
-                                        font-medium h-4 w-16 text-sm text-center">
-                                                    Delete
-                                                </button>
+                                                <a href="/editComment?id=${c.id}">
+                                                    <button class="text-white rounded-md bg-pink-400
+                                        font-medium h-8 w-20 text-ml text-center">
+                                                        Edit
+                                                    </button>
+                                                </a>
+
+                                                <a href="/deleteComment?id=${c.id}">
+                                                    <button class="text-white rounded-md bg-pink-400
+                                        font-medium h-8 w-20 text-ml text-center">
+                                                        Delete
+                                                    </button>
+                                                </a>
                                             </#if>
                                         </#if>
                                     </div>
