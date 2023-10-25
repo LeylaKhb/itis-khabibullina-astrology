@@ -3,6 +3,8 @@ package itis.khabibullina.dto;
 import java.sql.Date;
 
 public class FriendDto {
+    private int id;
+
     private String name;
 
     private Date dateOfBirth;
@@ -11,11 +13,16 @@ public class FriendDto {
 
     private String city;
 
-    public FriendDto(String name, Date dateOfBirth, String zodiacSign, String city) {
+    public FriendDto(int id, String name, Date dateOfBirth, String zodiacSign, String city) {
+        this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.zodiacSign = zodiacSign;
         this.city = city;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

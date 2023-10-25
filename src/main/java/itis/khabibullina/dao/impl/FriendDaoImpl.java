@@ -95,4 +95,37 @@ public class FriendDaoImpl implements FriendDao<Friend> {
         String sql = "SELECT * from friends WHERE user_id=" + userId;
         return getFriends(sql);
     }
+
+    @Override
+    public void update(Friend friend) {
+        String sql = "UPDATE friends SET " +
+                "name = ?, date_of_birth = ?, zodiac_sign = ?, city = ?" +
+                " WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, friend.getName());
+            preparedStatement.setDate(2, friend.getDateOfBirth());
+            preparedStatement.setString(3, friend.getZodiacSign());
+            preparedStatement.setString(4, friend.getCity());
+            preparedStatement.setInt(5, friend.getId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void delete(int id) {
+        String sql = "DELETE FROM friends WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

@@ -3,6 +3,7 @@ package itis.khabibullina.server;
 import itis.khabibullina.dao.UserDao;
 import itis.khabibullina.dao.impl.UserDaoImpl;
 import itis.khabibullina.model.User;
+import itis.khabibullina.util.PasswordUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +32,7 @@ public class LoginServlet extends HttpServlet {
         User user = userDao.get(login);
 
         if (user != null) {
-            if (user.getPassword().equals(password)) {
+            if (user.getPassword().equals(PasswordUtil.encrypt(password))) {
                 setSessionAndCookie(req, resp, login, remember);
                 resp.sendRedirect("/");
             } else {

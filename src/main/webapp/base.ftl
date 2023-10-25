@@ -7,12 +7,12 @@
 </head>
 
 <body>
-<div id="header">
-</div>
+    <div id="header">
+    </div>
 
-<div class="content1">
-    <div class="content"><@content></@content></div>
-</div>
+    <div class="content1">
+        <div class="content"><@content></@content></div>
+    </div>
 </body>
 
 </html>

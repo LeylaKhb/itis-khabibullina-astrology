@@ -15,4 +15,8 @@ public interface FriendService {
     List<FriendDto> getAllByUserId(int userId);
 
     void save(Friend friend);
+
+    void update(Friend friend);
+
+    void delete(int id);
 }

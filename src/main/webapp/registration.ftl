@@ -4,8 +4,10 @@
 <#macro title>Regisatration page</#macro>
 
 <script>
-    let dateOfBirthField = document.getElementById("dateOfBirth");
-    let zodiacSign = document.getElementById("zodiacSign");
+    let regButton = document.getElementById("regButton");
+
+    const dateOfBirthField = document.getElementById("dateOfBirth");
+    const zodiacSign = document.getElementById("zodiacSign");
     dateOfBirthField.onchange = function(){
         let dateOfBirth = dateOfBirthField.value;
         let month = dateOfBirth.split("-")[1];
@@ -57,9 +59,11 @@
         if (password.match(/(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g)) {
             passwordIncorrectField.hidden = true;
             passwordCorrectField.hidden = false;
+            regButton.disabled = false;
         } else {
             passwordIncorrectField.hidden = false;
             passwordCorrectField.hidden = true;
+            regButton.disabled = true;
         }
     }
 
@@ -67,11 +71,16 @@
     let cityIncorrectField = document.getElementById("cityIncorrect");
     cityField.onchange = function() {
         let city = cityField.value;
-        cityIncorrectField.hidden = !!city.match(/^([a-zA-Z]+-[a-zA-Z]+)$/g);
+        if (city.match(/^([a-zA-Z]+[-]*[a-zA-Z]+)$/g)) {
+            cityIncorrectField.hidden = true;
+            regButton.disabled = false;
+        } else {
+            cityIncorrectField.hidden = false;
+            regButton.disabled = true;
+        }
     }
-
-
 </script>
+
 <#macro content>
     <div class="ml-3 mt-3">
         <a href="/">
@@ -148,7 +157,7 @@
             </div>
             <br>
 
-            <input type="submit" value="Registration" class="text-white rounded-md bg-pink-400 font-medium h-12 w-24
+            <input id="regButton" type="submit" value="Registration" class="text-white rounded-md bg-pink-400 font-medium h-12 w-24
             mx-20 my-14 text-ml text-center"/>
         </form>
     </div>

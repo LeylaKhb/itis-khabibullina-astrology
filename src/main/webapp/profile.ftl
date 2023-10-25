@@ -4,8 +4,10 @@
 <#macro title>Profile</#macro>
 
 <script>
-    let dateOfBirthField = document.getElementById("dateOfBirth");
-    let zodiacSign = document.getElementById("zodiacSign");
+    let editButton = document.getElementById("editButton");
+
+    const dateOfBirthField = document.getElementById("dateOfBirth");
+    const zodiacSign = document.getElementById("zodiacSign");
     dateOfBirthField.onchange = function(){
         let dateOfBirth = dateOfBirthField.value;
         let month = dateOfBirth.split("-")[1];
@@ -53,7 +55,13 @@
     let cityIncorrectField = document.getElementById("cityIncorrect");
     cityField.onchange = function() {
         let city = cityField.value;
-        cityIncorrectField.hidden = !!city.match(/^([a-zA-Z]+-[a-zA-Z]+)$/g);
+        if (city.match(/^([a-zA-Z]+-[a-zA-Z]+)$/g)) {
+            cityIncorrectField.hidden = true;
+            editButton.disabled = false;
+        } else {
+            cityIncorrectField.hidden = false;
+            editButton.disabled = true;
+        }
     }
 </script>
 
@@ -114,7 +122,7 @@
                 bg-pink-50 rounded-md"/>
                 </div>
 
-                <input type="submit" value="Edit" class="text-white rounded-md bg-pink-400 font-medium h-12 w-24 mx-20
+                <input id="editButton" type="submit" value="Edit" class="text-white rounded-md bg-pink-400 font-medium h-12 w-24 mx-20
             mt-3 text-ml text-center" />
                 <br>
 
@@ -134,7 +142,7 @@
             <a href="/friends">
                 <button class="text-white rounded-md bg-pink-400 font-medium h-12 w-24 mx-20 mt-3 text-ml
                 text-center">
-                    Edit photo
+                    My friends
                 </button>
             </a>
         </div>

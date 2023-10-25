@@ -43,7 +43,8 @@
                         Login: ${p.userLogin}
                         <#if sessionLogin??>
                             <#if p.userLogin == sessionLogin>
-                                <button class="ml-96 text-white rounded-md bg-pink-400
+                                <br>
+                                <button class="text-white rounded-md bg-pink-400
                                         font-medium h-8 w-20 text-ml text-center">
                                     Edit
                                 </button>
@@ -69,7 +70,8 @@
                                         ${c.userLogin}: ${c.content}
                                         <#if sessionLogin??>
                                             <#if c.userLogin == sessionLogin>
-                                                <button class="ml-96 text-white rounded-md bg-pink-400
+                                                <br>
+                                                <button class="text-white rounded-md bg-pink-400
                                         font-medium h-4 w-16 text-sm text-center">
                                                     Edit
                                                 </button>

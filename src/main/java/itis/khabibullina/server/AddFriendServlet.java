@@ -10,30 +10,36 @@ import itis.khabibullina.service.impl.FriendServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.List;
 
+@WebServlet(name = "addFriendServlet", urlPatterns = "/addFriend")
 
-@WebServlet(name = "friendsServlet", urlPatterns = "/friends")
-public class FriendsServlet extends HttpServlet {
-
+public class AddFriendServlet extends HttpServlet {
     private final FriendService friendService = new FriendServiceImpl();
     private static final UserDao<User> userDao = new UserDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        req.getRequestDispatcher("new_friend.ftl").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Date dateOfBirth = Date.valueOf(req.getParameter("dateOfBirth"));
+        String zodiacSign = req.getParameter("zodiacSign");
+        String name = req.getParameter("name");
+        String city = req.getParameter("city");
+
         HttpSession httpSession = req.getSession();
         String login = String.valueOf(httpSession.getAttribute("login"));
 
         User user = userDao.get(login);
-        List<FriendDto> friends = friendService.getAllByUserId(user.getId());
-        req.setAttribute("friends", friends);
-        req.getRequestDispatcher("friends.ftl").forward(req, resp);
 
+        Friend friend = new Friend(user.getId(), dateOfBirth, zodiacSign, name, city);
+        friendService.save(friend);
+
+        resp.sendRedirect("/friends");
     }
 }
