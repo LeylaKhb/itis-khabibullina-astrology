@@ -24,6 +24,10 @@
         </a>
     </div>
 
+    <div class="text-pink-400 w-full flex items-center justify-center font-medium text-3xl mt-12 ">
+        ✨Your daily phrase✨
+    </div>
+
     <div class="flex justify-center mt-20">
         <form>
             <input type="button" id="ajax-button" value="Get daily phrase" class="text-white rounded-md bg-pink-400

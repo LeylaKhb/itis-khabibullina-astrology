@@ -1,6 +1,5 @@
 package itis.khabibullina.dao.impl;
 
-import itis.khabibullina.dao.Dao;
 import itis.khabibullina.dao.UserDao;
 import itis.khabibullina.model.User;
 import itis.khabibullina.server.LoginServlet;
@@ -32,20 +31,20 @@ public class UserDaoImpl implements UserDao<User> {
     }
 
     @Override
-    public void update(String login, String password, Date dateOfBirth, String zodiacSign, String name, String city) {
+    public void update(User user) {
         String sql = "UPDATE users SET " +
-                "name = ?, dateOfBirth = ?, zodiacSign = ?, city = ?, password = ?" +
-                " WHERE login = ?;";
+                "login = ?, name = ?, date_of_birth = ?, zodiac_sign = ?, city = ?, password = ?" +
+                " WHERE id = ?;";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, name);
-            preparedStatement.setDate(2, dateOfBirth);
-            preparedStatement.setString(3, zodiacSign);
-            preparedStatement.setString(4, city);
-            preparedStatement.setString(5, password);
-            preparedStatement.setString(6, login);
-            LOGGER.info(String.valueOf(preparedStatement));
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, user.getName());
+            preparedStatement.setDate(3, user.getDateOfBirth());
+            preparedStatement.setString(4, user.getZodiacSign());
+            preparedStatement.setString(5, user.getCity());
+            preparedStatement.setString(6, user.getPassword());
+            preparedStatement.setInt(7, user.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -67,8 +66,8 @@ public class UserDaoImpl implements UserDao<User> {
                                     resultSet.getInt("id"),
                                     resultSet.getString("login"),
                                     resultSet.getString("password"),
-                                    resultSet.getDate("dateOfBirth"),
-                                    resultSet.getString("zodiacSign"),
+                                    resultSet.getDate("date_of_birth"),
+                                    resultSet.getString("zodiac_sign"),
                                     resultSet.getString("name"),
                                     resultSet.getString("city")
 
@@ -84,7 +83,7 @@ public class UserDaoImpl implements UserDao<User> {
 
     @Override
     public void save(User user) {
-        String sql = "insert into users (name, dateOfBirth, zodiacSign, city, login, password) values (?, ?, ?, ?, ?, ?);";
+        String sql = "insert into users (name, date_of_birth, zodiac_sign, city, login, password) values (?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getName());
@@ -112,8 +111,8 @@ public class UserDaoImpl implements UserDao<User> {
                             resultSet.getInt("id"),
                             resultSet.getString("login"),
                             resultSet.getString("password"),
-                            resultSet.getDate("dateOfBirth"),
-                            resultSet.getString("zodiacSign"),
+                            resultSet.getDate("date_of_birth"),
+                            resultSet.getString("zodiac_sign"),
                             resultSet.getString("name"),
                             resultSet.getString("city")
 

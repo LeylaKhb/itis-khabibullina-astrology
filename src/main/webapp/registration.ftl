@@ -48,6 +48,29 @@
             else zodiacSign.value = "Capricorn";
         }
     };
+
+    let passwordField = document.getElementById("password");
+    let passwordCorrectField = document.getElementById("passwordCorrect");
+    let passwordIncorrectField = document.getElementById("passwordIncorrect");
+    passwordField.onchange = function() {
+        let password = passwordField.value;
+        if (password.match(/(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g)) {
+            passwordIncorrectField.hidden = true;
+            passwordCorrectField.hidden = false;
+        } else {
+            passwordIncorrectField.hidden = false;
+            passwordCorrectField.hidden = true;
+        }
+    }
+
+    let cityField = document.getElementById("city");
+    let cityIncorrectField = document.getElementById("cityIncorrect");
+    cityField.onchange = function() {
+        let city = cityField.value;
+        cityIncorrectField.hidden = !!city.match(/^([a-zA-Z]+-[a-zA-Z]+)$/g);
+    }
+
+
 </script>
 <#macro content>
     <div class="ml-3 mt-3">
@@ -64,13 +87,29 @@
                 Login:
                 <input required type="text" name="login" placeholder="login" class="border border-pink-400 bg-pink-50
                 rounded-md"/>
+                <div class="text-gray-400 text-xs">
+                    Login should be unique
+                </div>
             </div>
             <br>
 
             <div class="font-medium text-pink-400 text-ml">
                 Password:
-                <input required type="password" placeholder="password" name="password" class="border border-pink-400
+                <input id="password" required type="password" placeholder="password" name="password" class="border border-pink-400
                 bg-pink-50 rounded-md"/>
+                <div id="passwordValidation" class="text-gray-400 text-xs">
+                    Password should have minimum 8 characters and
+                    <br>
+                    contain at least one small letter, capital letter,
+                    <br>
+                    digit and special symbol from [!@#$%^&*]
+                </div>
+                <div hidden="hidden" id="passwordCorrect" class="text-green-400 text-xs">
+                    Password is correct
+                </div>
+                <div hidden="hidden" id="passwordIncorrect" class="text-red-400 text-xs">
+                    Password isn't correct
+                </div>
             </div>
             <br>
 
@@ -97,8 +136,11 @@
 
             <div class="font-medium text-pink-400 text-ml">
                 City:
-                <input required type="text" placeholder="city" name="city" class="border border-pink-400 bg-pink-50
+                <input required id="city" type="text" placeholder="city" name="city" class="border border-pink-400 bg-pink-50
                 rounded-md"/>
+                <div hidden="hidden" id="cityIncorrect" class="text-red-400 text-xs">
+                    City isn't correct
+                </div>
             </div>
 
             <div class="font-medium text-pink-400 text-ml mt-2">
@@ -106,14 +148,13 @@
             </div>
             <br>
 
-
             <input type="submit" value="Registration" class="text-white rounded-md bg-pink-400 font-medium h-12 w-24
             mx-20 my-14 text-ml text-center"/>
         </form>
     </div>
 
     <#if userExist??>
-        <div class="text-pink-400 w-full flex items-center justify-center font-medium text-xl mt-12">
+        <div class="text-pink-400 w-full flex items-center justify-center font-medium text-xl">
             User with this login exist, please use another login
         </div>
     </#if>

@@ -13,6 +13,8 @@ public interface UserService {
 
     UserDto get(String login);
 
-
     void save(User user);
+
+    void update(User user);
+
 }

@@ -44,4 +44,10 @@ public class UserServiceImpl implements UserService {
         user.setPassword(PasswordUtil.encrypt(user.getPassword()));
         dao.save(user);
     }
+
+    @Override
+    public void update(User user) {
+        user.setPassword(PasswordUtil.encrypt(user.getPassword()));
+        dao.update(user);
+    }
 }

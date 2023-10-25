@@ -48,6 +48,13 @@
             else zodiacSign.value = "Capricorn";
         }
     };
+
+    let cityField = document.getElementById("city");
+    let cityIncorrectField = document.getElementById("cityIncorrect");
+    cityField.onchange = function() {
+        let city = cityField.value;
+        cityIncorrectField.hidden = !!city.match(/^([a-zA-Z]+-[a-zA-Z]+)$/g);
+    }
 </script>
 
 <#macro content>
@@ -66,6 +73,13 @@
                     Edit profile:
                 </div>
                 <br>
+                <div class="font-medium text-pink-400 text-ml">
+                    Login:
+                    <input type="text" value=${user.login} name="login" class="border border-pink-400
+                bg-pink-50 rounded-md"/>
+                </div>
+                <br>
+
                 <div class="font-medium text-pink-400 text-ml">
                     Password:
                     <input type="password" value=${user.password} placeholder="password" name="password" class="border
@@ -96,7 +110,7 @@
 
                 <div class="font-medium text-pink-400 text-ml">
                     City:
-                    <input type="text" placeholder="city" value=${user.city} name="city" class="border border-pink-400
+                    <input id="city" type="text" placeholder="city" value=${user.city} name="city" class="border border-pink-400
                 bg-pink-50 rounded-md"/>
                 </div>
 
@@ -116,7 +130,16 @@
             </div>
         </div>
 
-        <div class="w-1/2 items-center justify-between flex flex-col">
+        <div class="w-1/3 items-center justify-between flex flex-col">
+            <a href="/friends">
+                <button class="text-white rounded-md bg-pink-400 font-medium h-12 w-24 mx-20 mt-3 text-ml
+                text-center">
+                    Edit photo
+                </button>
+            </a>
+        </div>
+
+        <div class="w-1/3 items-center justify-between flex flex-col">
             <#if imageUrl??>
                 <img class="w-36 object-contain" src=${imageUrl} />
             </#if>

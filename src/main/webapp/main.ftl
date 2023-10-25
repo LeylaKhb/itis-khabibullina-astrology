@@ -27,6 +27,13 @@
 
     <div class="text-pink-400 w-full flex items-center justify-center font-medium text-2xl mt-12 ">
         ✨Astrology✨
+        <br>
+        <a href="/forum">
+            <button class="text-white rounded-md bg-pink-400 font-medium h-14 w-28 mx-20 my-14 text-xl text-center">
+                Forum
+            </button>
+        </a>
+
     </div>
 
     <div class="w-full items-center justify-between flex">

@@ -1,32 +1,27 @@
 package itis.khabibullina.server;
 
-import com.cloudinary.Cloudinary;
 import itis.khabibullina.dao.UserDao;
 import itis.khabibullina.dao.impl.UserDaoImpl;
+import itis.khabibullina.dto.UserDto;
 import itis.khabibullina.model.User;
 import itis.khabibullina.service.UserService;
 import itis.khabibullina.service.impl.UserServiceImpl;
-import itis.khabibullina.util.CloudinaryUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.*;
 import java.sql.Date;
-import java.util.HashMap;
 
 @WebServlet(name = "profileServlet", urlPatterns = "/profile")
 public class PersonalAccountServlet extends HttpServlet {
-    private final UserService userService = new UserServiceImpl();
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoginServlet.class);
+    private static final UserService userService = new UserServiceImpl();
 
     private static final UserDao<User> userDao = new UserDaoImpl();
-    private final Cloudinary cloudinary = CloudinaryUtil.getInstance();
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginServlet.class);
 
 
     @Override
@@ -41,7 +36,6 @@ public class PersonalAccountServlet extends HttpServlet {
             for (Cookie c: cookies) {
                 if (c.getName().equals("imageUrl")) {
                     String url = c.getValue();
-                    LOGGER.info(url);
                     req.setAttribute("imageUrl", url);
                 }
             }
@@ -52,18 +46,10 @@ public class PersonalAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addAndUpdateUser(req, resp, "update");
-        resp.sendRedirect("/");
     }
 
-    static void addAndUpdateUser(HttpServletRequest req, HttpServletResponse resp, String method) throws IOException {
-        String login;
-        if (method.equals("add")){
-            login = req.getParameter("login");
-        }
-        else {
-            HttpSession httpSession = req.getSession(false);
-            login = String.valueOf(httpSession.getAttribute("login"));
-        }
+    static void addAndUpdateUser(HttpServletRequest req, HttpServletResponse resp, String method) throws IOException, ServletException {
+        String login = req.getParameter("login");
         String password = req.getParameter("password");
         Date dateOfBirth = Date.valueOf(req.getParameter("dateOfBirth"));
         String zodiacSign = req.getParameter("zodiacSign");
@@ -71,11 +57,26 @@ public class PersonalAccountServlet extends HttpServlet {
         String city = req.getParameter("city");
 
         if (method.equals("update")) {
-            userDao.update(
-                    login, password, dateOfBirth, zodiacSign, name, city
-            );
+            HttpSession httpSession = req.getSession(false);
+            String oldLogin = String.valueOf(httpSession.getAttribute("login"));
+            User user = userDao.get(oldLogin);
+            boolean userExist = false;
+            if (!oldLogin.equals(user.getLogin())) {
+                User newUser = userDao.get(login);
+                if (newUser != null) {
+                    req.setAttribute("userExist", true);
+                    req.getRequestDispatcher("profile.ftl").forward(req, resp);
+                    userExist = true;
+                }
+            }
+            if (!userExist) {
+                userService.update(new User(
+                        user.getId(), login, password, dateOfBirth, zodiacSign, name, city
+                ));
+                resp.sendRedirect("/");
+            }
         } else {
-            userDao.save(new User(
+            userService.save(new User(
                     login, password, dateOfBirth, zodiacSign, name, city
             ));
         }
