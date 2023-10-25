@@ -45,12 +45,20 @@
                 <button class="text-white rounded-md bg-pink-400 font-medium h-14 w-32 mx-20 my-14 text-xl
                 text-center">Daily phrase for all</button>
             </a>
+            <a href="/luckySigns">
+                <button class="text-white rounded-md bg-pink-400 font-medium h-14 w-32 mx-20 text-xl
+                text-center">Lucky and unlucky signs by date</button>
+            </a>
         </div>
         <div class="w-1/2 flex items-center justify-center text-pink-400 font-medium text-xl flex-col" >
             If you're signed in:
             <a href="/horoscope">
                 <button class="text-white rounded-md bg-pink-400 font-medium h-14 w-32 mx-20 my-14 text-xl
                 text-center">Horoscope for you sign</button>
+            </a>
+            <a href="/compatibility">
+                <button class="text-white rounded-md bg-pink-400 font-medium h-14 w-32 mx-20 text-xl
+                text-center">Compatibility with your friends</button>
             </a>
         </div>
     </div>

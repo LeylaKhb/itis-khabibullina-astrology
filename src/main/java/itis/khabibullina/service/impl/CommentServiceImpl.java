@@ -3,10 +3,8 @@ package itis.khabibullina.service.impl;
 import itis.khabibullina.dao.*;
 import itis.khabibullina.dao.impl.CommentDaoImpl;
 import itis.khabibullina.dto.CommentDto;
-import itis.khabibullina.dto.CommentDto;
 import itis.khabibullina.model.Comment;
 import itis.khabibullina.service.CommentService;
-import itis.khabibullina.service.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;

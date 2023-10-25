@@ -4,10 +4,7 @@ import itis.khabibullina.dao.*;
 import itis.khabibullina.dao.impl.*;
 import itis.khabibullina.dto.*;
 import itis.khabibullina.model.Post;
-import itis.khabibullina.model.User;
 import itis.khabibullina.service.PostService;
-import itis.khabibullina.service.Service;
-import itis.khabibullina.util.PasswordUtil;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -62,7 +62,7 @@
                         </#if>
                     </div>
                     <br>
-                    <div class="text-ml mx-1">
+                    <div class="text-ml mx-1 border-b border-b-pink-400">
                         Date: ${p.dateOfCreation}
                         <br>
                         ${p.content}
@@ -72,6 +72,9 @@
                         <#if comments?has_content>
                             <#list comments as c>
                                 <#if c.postId == p.id>
+                                    <div class="font-medium text-pink-400">
+                                        Comments
+                                    </div>
                                     <div class="text-pink-400 font-normal border border-pink-400 bg-pink-50 text-sm">
                                         ${c.userLogin}: ${c.content}
                                         <#if sessionLogin??>

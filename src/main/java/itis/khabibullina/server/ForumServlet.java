@@ -49,7 +49,6 @@ public class ForumServlet extends HttpServlet {
         String login = String.valueOf(httpSession.getAttribute("login"));
 
         Date date = new Date(System.currentTimeMillis());
-
         User user = userDao.get(login);
 
         postService.save(new Post(user.getId(), login, content, date));
