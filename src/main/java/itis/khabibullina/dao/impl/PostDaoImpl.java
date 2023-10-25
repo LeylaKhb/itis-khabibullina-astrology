@@ -85,4 +85,34 @@ public class PostDaoImpl implements Dao<Post> {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void update(Post post) {
+        String sql = "UPDATE posts SET " +
+                "content = ?, date_of_creation = ?" +
+                " WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, post.getContent());
+            preparedStatement.setDate(2, post.getDateOfCreation());
+            preparedStatement.setInt(3, post.getId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void delete(int id) {
+        String sql = "DELETE FROM posts WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

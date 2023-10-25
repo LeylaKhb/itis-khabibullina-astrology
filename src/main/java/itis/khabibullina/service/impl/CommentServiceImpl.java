@@ -12,25 +12,42 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CommentServiceImpl implements CommentService {
-    private final Dao<Comment> dao = new CommentDaoImpl();
+    private final CommentDao<Comment> dao = new CommentDaoImpl();
 
     @Override
     public List<CommentDto> getAll() {
         return dao.getAll().stream().map(
-                c -> new CommentDto(c.getUserLogin(), c.getPostId(), c.getContent())
+                c -> new CommentDto(c.getId(), c.getUserLogin(), c.getPostId(), c.getContent())
+        ).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CommentDto> getAllByPostId(int id) {
+        return dao.getAllByPostId(id).stream().map(
+                c -> new CommentDto(c.getId(), c.getUserLogin(), c.getPostId(), c.getContent())
         ).collect(Collectors.toList());
     }
 
     @Override
     public CommentDto get(int id) {
-        Comment p = dao.get(id);
-        return new CommentDto(p.getUserLogin(),  p.getPostId(), p.getContent());
+        Comment c = dao.get(id);
+        return new CommentDto(c.getId(), c.getUserLogin(),  c.getPostId(), c.getContent());
     }
 
 
     @Override
     public void save(Comment comment) {
         dao.save(comment);
+    }
+
+    @Override
+    public void update(Comment comment) {
+        dao.update(comment);
+    }
+
+    @Override
+    public void delete(int id) {
+        dao.delete(id);
     }
 
 }

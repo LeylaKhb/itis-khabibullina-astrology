@@ -1,4 +1,4 @@
-package itis.khabibullina.server;
+package itis.khabibullina.server.friends;
 
 import itis.khabibullina.dao.UserDao;
 import itis.khabibullina.dao.impl.UserDaoImpl;
@@ -33,7 +33,7 @@ public class FriendsServlet extends HttpServlet {
         User user = userDao.get(login);
         List<FriendDto> friends = friendService.getAllByUserId(user.getId());
         req.setAttribute("friends", friends);
-        req.getRequestDispatcher("friends.ftl").forward(req, resp);
+        req.getRequestDispatcher("friends/friends.ftl").forward(req, resp);
 
     }
 }

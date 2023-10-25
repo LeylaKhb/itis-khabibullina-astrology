@@ -1,5 +1,6 @@
 package itis.khabibullina.dao.impl;
 
+import itis.khabibullina.dao.CommentDao;
 import itis.khabibullina.dao.Dao;
 import itis.khabibullina.model.Comment;
 import itis.khabibullina.server.LoginServlet;
@@ -11,7 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentDaoImpl implements Dao<Comment> {
+public class CommentDaoImpl implements CommentDao<Comment> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginServlet.class);
     private final Connection connection = DatabaseConnectionUtil.getConnection();
@@ -43,9 +44,14 @@ public class CommentDaoImpl implements Dao<Comment> {
 
     @Override
     public List<Comment> getAll() {
+        String sql = "SELECT * from comments";
+        return getComments(sql);
+
+    }
+
+    private List<Comment> getComments(String sql) {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * from comments";
             ResultSet resultSet = statement.executeQuery(sql);
             List<Comment> comments = new ArrayList<>();
             if (resultSet != null) {
@@ -82,5 +88,40 @@ public class CommentDaoImpl implements Dao<Comment> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void update(Comment comment) {
+        String sql = "UPDATE comments SET " +
+                "content = ?" +
+                " WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, comment.getContent());
+            preparedStatement.setInt(2, comment.getId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void delete(int id) {
+        String sql = "DELETE FROM comments WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Comment> getAllByPostId(int postId) {
+        String sql = "SELECT * from comments WHERE post_id = " + postId;
+        return getComments(sql);
     }
 }

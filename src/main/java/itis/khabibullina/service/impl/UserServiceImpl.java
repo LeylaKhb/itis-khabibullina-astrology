@@ -50,4 +50,9 @@ public class UserServiceImpl implements UserService {
         user.setPassword(PasswordUtil.encrypt(user.getPassword()));
         dao.update(user);
     }
+
+    @Override
+    public void delete(int id) {
+        dao.delete(id);
+    }
 }

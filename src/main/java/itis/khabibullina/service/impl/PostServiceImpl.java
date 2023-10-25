@@ -32,4 +32,14 @@ public class PostServiceImpl implements PostService {
     public void save(Post entity) {
         dao.save(entity);
     }
+
+    @Override
+    public void update(Post post) {
+        dao.update(post);
+    }
+
+    @Override
+    public void delete(int id) {
+        dao.delete(id);
+    }
 }

@@ -44,14 +44,20 @@
                         <#if sessionLogin??>
                             <#if p.userLogin == sessionLogin>
                                 <br>
-                                <button class="text-white rounded-md bg-pink-400
+                                <a href="/editPost?id=${p.id}">
+                                    <button class="text-white rounded-md bg-pink-400
                                         font-medium h-8 w-20 text-ml text-center">
-                                    Edit
-                                </button>
-                                <button class="text-white rounded-md bg-pink-400
+                                        Edit
+                                    </button>
+                                </a>
+
+                                <a href="/deletePost?id=${p.id}">
+                                    <button class="text-white rounded-md bg-pink-400
                                         font-medium h-8 w-20 text-ml text-center">
-                                    Delete
-                                </button>
+                                        Delete
+                                    </button>
+                                </a>
+
                             </#if>
                         </#if>
                     </div>

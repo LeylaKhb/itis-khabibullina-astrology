@@ -1,4 +1,4 @@
-package itis.khabibullina.server;
+package itis.khabibullina.server.comments;
 
 import com.google.gson.Gson;
 import itis.khabibullina.dao.*;
@@ -7,6 +7,7 @@ import itis.khabibullina.dto.*;
 import itis.khabibullina.model.Comment;
 import itis.khabibullina.model.Post;
 import itis.khabibullina.model.User;
+import itis.khabibullina.server.LoginServlet;
 import itis.khabibullina.service.*;
 import itis.khabibullina.service.impl.*;
 import org.slf4j.Logger;

@@ -1,5 +1,5 @@
 <html lang="en">
-<#include "base.ftl">
+<#include "../base.ftl">
 
 <#macro title>New friend</#macro>
 

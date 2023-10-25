@@ -1,4 +1,4 @@
-package itis.khabibullina.server;
+package itis.khabibullina.server.friends;
 
 import itis.khabibullina.dao.UserDao;
 import itis.khabibullina.dao.impl.UserDaoImpl;

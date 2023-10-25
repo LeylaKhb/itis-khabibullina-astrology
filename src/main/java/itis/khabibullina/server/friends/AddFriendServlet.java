@@ -1,4 +1,4 @@
-package itis.khabibullina.server;
+package itis.khabibullina.server.friends;
 
 import itis.khabibullina.dao.UserDao;
 import itis.khabibullina.dao.impl.UserDaoImpl;
@@ -14,19 +14,15 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.Date;
 
-@WebServlet(name = "editFriendServlet", urlPatterns = "/editFriend")
+@WebServlet(name = "addFriendServlet", urlPatterns = "/addFriend")
 
-public class EditFriendServlet extends HttpServlet {
+public class AddFriendServlet extends HttpServlet {
     private final FriendService friendService = new FriendServiceImpl();
     private static final UserDao<User> userDao = new UserDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        FriendDto friend = friendService.get(id);
-        req.setAttribute("friend", friend);
-        req.setAttribute("dateOfBirth", String.valueOf(friend.getDateOfBirth()));
-        req.getRequestDispatcher("edit_friend.ftl").forward(req, resp);
+        req.getRequestDispatcher("friends/new_friend.ftl").forward(req, resp);
     }
 
     @Override
@@ -35,17 +31,15 @@ public class EditFriendServlet extends HttpServlet {
         String zodiacSign = req.getParameter("zodiacSign");
         String name = req.getParameter("name");
         String city = req.getParameter("city");
-        int id = Integer.parseInt(req.getParameter("id"));
 
         HttpSession httpSession = req.getSession();
         String login = String.valueOf(httpSession.getAttribute("login"));
 
         User user = userDao.get(login);
 
-        Friend friend = new Friend(id, user.getId(), dateOfBirth, zodiacSign, name, city);
-        friendService.update(friend);
+        Friend friend = new Friend(user.getId(), dateOfBirth, zodiacSign, name, city);
+        friendService.save(friend);
 
         resp.sendRedirect("/friends");
-
     }
 }

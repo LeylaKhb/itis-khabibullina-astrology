@@ -53,6 +53,19 @@ public class UserDaoImpl implements UserDao<User> {
     }
 
     @Override
+    public void delete(int id) {
+        String sql = "DELETE FROM users WHERE id = ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public List<User> getAll() {
         try {
             Statement statement = connection.createStatement();

@@ -1,12 +1,16 @@
-package itis.khabibullina.server;
+package itis.khabibullina.server.posts;
 
 import itis.khabibullina.dao.UserDao;
 import itis.khabibullina.dao.impl.UserDaoImpl;
 import itis.khabibullina.dto.FriendDto;
+import itis.khabibullina.dto.PostDto;
 import itis.khabibullina.model.Friend;
+import itis.khabibullina.model.Post;
 import itis.khabibullina.model.User;
 import itis.khabibullina.service.FriendService;
+import itis.khabibullina.service.PostService;
 import itis.khabibullina.service.impl.FriendServiceImpl;
+import itis.khabibullina.service.impl.PostServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,32 +18,36 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.Date;
 
-@WebServlet(name = "addFriendServlet", urlPatterns = "/addFriend")
+@WebServlet(name = "editPostServlet", urlPatterns = "/editPost")
 
-public class AddFriendServlet extends HttpServlet {
-    private final FriendService friendService = new FriendServiceImpl();
+public class EditPostServlet extends HttpServlet {
+    private final PostService postService = new PostServiceImpl();
     private static final UserDao<User> userDao = new UserDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.getRequestDispatcher("new_friend.ftl").forward(req, resp);
+        int id = Integer.parseInt(req.getParameter("id"));
+        PostDto post = postService.get(id);
+        req.setAttribute("post", post);
+        req.getRequestDispatcher("posts/edit_post.ftl").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Date dateOfBirth = Date.valueOf(req.getParameter("dateOfBirth"));
-        String zodiacSign = req.getParameter("zodiacSign");
-        String name = req.getParameter("name");
-        String city = req.getParameter("city");
+        String content = req.getParameter("content");
+        int id = Integer.parseInt(req.getParameter("id"));
+        Date date = new Date(System.currentTimeMillis());
 
         HttpSession httpSession = req.getSession();
         String login = String.valueOf(httpSession.getAttribute("login"));
 
         User user = userDao.get(login);
 
-        Friend friend = new Friend(user.getId(), dateOfBirth, zodiacSign, name, city);
-        friendService.save(friend);
+        Post post = new Post(id, user.getId(), login, content, date);
+        postService.update(post);
 
-        resp.sendRedirect("/friends");
+        resp.sendRedirect("/forum");
+
     }
 }
+
