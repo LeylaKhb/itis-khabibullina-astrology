@@ -57,7 +57,7 @@
                 text-center">Horoscope for you sign</button>
             </a>
             <a href="/compatibility">
-                <button class="text-white rounded-md bg-pink-400 font-medium h-14 w-32 mx-20 text-xl
+                <button class="text-white rounded-md bg-pink-400 font-medium h-20 w-32 mx-20 text-xl
                 text-center">Compatibility with your friends</button>
             </a>
         </div>

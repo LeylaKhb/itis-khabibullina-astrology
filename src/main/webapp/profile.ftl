@@ -152,7 +152,8 @@
                 <img class="w-36 object-contain" src=${imageUrl} />
             </#if>
             <#if !imageUrl??>
-                <img class="w-36 object-contain" src="http://res.cloudinary.com/dphkmjgiy/image/upload/v1697199951/kdtdxbd7l1ujeshrhpun.jpg" />
+                <img class="w-36 object-contain"
+                     src="http://res.cloudinary.com/dphkmjgiy/image/upload/v1697199951/kdtdxbd7l1ujeshrhpun.jpg" />
             </#if>
 
             <a href="/upload">

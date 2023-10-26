@@ -64,6 +64,6 @@ public class FileUploadingServlet extends HttpServlet {
         cookie.setMaxAge(24 * 60 * 60);
         resp.addCookie(cookie);
 
-        resp.sendRedirect("/");
+        resp.sendRedirect("/profile");
     }
 }

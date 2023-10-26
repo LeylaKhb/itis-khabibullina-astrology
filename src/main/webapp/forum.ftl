@@ -69,12 +69,13 @@
                     </div>
 
                     <div class="mx-9">
+                        <div class="font-medium text-pink-400">
+                            Comments
+                        </div>
+
                         <#if comments?has_content>
                             <#list comments as c>
                                 <#if c.postId == p.id>
-                                    <div class="font-medium text-pink-400">
-                                        Comments
-                                    </div>
                                     <div class="text-pink-400 font-normal border border-pink-400 bg-pink-50 text-sm">
                                         ${c.userLogin}: ${c.content}
                                         <#if sessionLogin??>

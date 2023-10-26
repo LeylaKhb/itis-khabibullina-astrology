@@ -73,7 +73,7 @@ public class PersonalAccountServlet extends HttpServlet {
                 userService.update(new User(
                         user.getId(), login, password, dateOfBirth, zodiacSign, name, city
                 ));
-                resp.sendRedirect("/");
+                resp.sendRedirect("/profile");
             }
         } else {
             userService.save(new User(

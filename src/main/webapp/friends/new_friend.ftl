@@ -93,7 +93,7 @@
             bg-pink-50 rounded-md"/>
             </div>
 
-            <input type="submit" value="Edit" class="text-white rounded-md bg-pink-400 font-medium h-12 w-24 mx-20
+            <input type="submit" value="Add" class="text-white rounded-md bg-pink-400 font-medium h-12 w-24 mx-20
         mt-3 text-ml text-center" />
             <br>
 

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Arrays;
 
 @WebFilter(filterName = "httpSessionFilter", urlPatterns = "/*")
 public class HttpSessionFilter implements Filter {
@@ -27,6 +28,7 @@ public class HttpSessionFilter implements Filter {
         HttpSession httpSession = httpServletRequest.getSession();
 
         Cookie[] cookies = httpServletRequest.getCookies();
+
         if (cookies != null) {
             for (Cookie c: cookies) {
                 if (c.getName().equals("login")) {
