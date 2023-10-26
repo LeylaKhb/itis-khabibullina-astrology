@@ -1,6 +1,7 @@
 package itis.khabibullina.dao.impl;
 
 import itis.khabibullina.dao.ZodiacSignLuckDao;
+import itis.khabibullina.dto.ZodiacSignLuckDto;
 import itis.khabibullina.model.ZodiacSignLuck;
 import itis.khabibullina.util.DatabaseConnectionUtil;
 
@@ -26,10 +27,18 @@ public class ZodiacSignLuckDaoImpl implements ZodiacSignLuckDao<ZodiacSignLuck> 
 
     @Override
     public List<ZodiacSignLuck> getAll() {
+        String sql = "SELECT * from lucky_zodiac_signs";
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * from lucky_zodiac_signs";
             ResultSet resultSet = statement.executeQuery(sql);
+            return getAllZodiacSigns(resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private List<ZodiacSignLuck> getAllZodiacSigns(ResultSet resultSet) {
+        try {
             List<ZodiacSignLuck> luckyZodiacSigns = new ArrayList<>();
             if (resultSet != null) {
                 while (resultSet.next()) {
@@ -48,6 +57,28 @@ public class ZodiacSignLuckDaoImpl implements ZodiacSignLuckDao<ZodiacSignLuck> 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<ZodiacSignLuck> getAllByName(String sign) {
+        String sql1 = "SELECT * from lucky_zodiac_signs WHERE lucky_zodiac_sign = ?";
+        String sql2 = "SELECT * from lucky_zodiac_signs WHERE unlucky_zodiac_sign = ?";
+        try {
+            PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
+            preparedStatement1.setString(1, sign);
+            PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
+            preparedStatement2.setString(1, sign);
+
+            ResultSet resultSet1 = preparedStatement1.executeQuery();
+            List<ZodiacSignLuck> signs = getAllZodiacSigns(resultSet1);
+            ResultSet resultSet2 = preparedStatement2.executeQuery();
+            signs.addAll(getAllZodiacSigns(resultSet2));
+            return signs;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     @Override

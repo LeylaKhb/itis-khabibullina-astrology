@@ -13,6 +13,7 @@ public interface ZodiacSignLuckService {
 
     ZodiacSignLuckDto get(Date date);
 
+    List<ZodiacSignLuckDto> getAllByName(String sign);
 
     void save(ZodiacSignLuck zodiacSignLuck);
 }

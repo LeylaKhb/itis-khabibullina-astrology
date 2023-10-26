@@ -2,11 +2,6 @@
 <#include "base.ftl">
 
 <#macro title>Compatibility page</#macro>
-<style>
-    .dropdown:hover .dropdown-menu {
-        display: block;
-    }
-</style>
 
 <#macro content>
     <div class="ml-3 mt-3">

@@ -34,6 +34,13 @@ public class ZodiacSignLuckServiceImpl implements ZodiacSignLuckService {
         return new ZodiacSignLuckDto(z.getDateOfLuck(), z.getLuckyZodiacSign(), z.getUnluckyZodiacSign());    }
 
     @Override
+    public List<ZodiacSignLuckDto> getAllByName(String sign) {
+        return dao.getAllByName(sign).stream().map(
+                z -> new ZodiacSignLuckDto(z.getDateOfLuck(), z.getLuckyZodiacSign(), z.getUnluckyZodiacSign())
+        ).collect(Collectors.toList());
+    }
+
+    @Override
     public void save(ZodiacSignLuck zodiacSignLuck) {
         dao.save(zodiacSignLuck);
     }

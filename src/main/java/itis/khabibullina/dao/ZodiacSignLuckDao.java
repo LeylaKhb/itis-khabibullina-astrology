@@ -8,6 +8,8 @@ public interface ZodiacSignLuckDao<T> {
 
     List<T> getAll();
 
+    List<T> getAllByName(String sign);
+
     void save (T t);
 
     T get(Date date);
