@@ -7,6 +7,7 @@ import itis.khabibullina.model.Friend;
 import itis.khabibullina.model.User;
 import itis.khabibullina.service.FriendService;
 import itis.khabibullina.service.impl.FriendServiceImpl;
+import itis.khabibullina.util.CurrentUserUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,14 +24,9 @@ import java.util.List;
 public class FriendsServlet extends HttpServlet {
 
     private final FriendService friendService = new FriendServiceImpl();
-    private static final UserDao<User> userDao = new UserDaoImpl();
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        HttpSession httpSession = req.getSession();
-        String login = String.valueOf(httpSession.getAttribute("login"));
-
-        User user = userDao.get(login);
+        User user = CurrentUserUtil.getUser(req);
         List<FriendDto> friends = friendService.getAllByUserId(user.getId());
         req.setAttribute("friends", friends);
         req.getRequestDispatcher("friends/friends.ftl").forward(req, resp);

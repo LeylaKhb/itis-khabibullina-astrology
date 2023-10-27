@@ -10,6 +10,7 @@ import itis.khabibullina.model.User;
 import itis.khabibullina.server.LoginServlet;
 import itis.khabibullina.service.*;
 import itis.khabibullina.service.impl.*;
+import itis.khabibullina.util.CurrentUserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,11 +35,9 @@ public class CommentServlet extends HttpServlet {
         String content = req.getParameter("commentContent");
         String postId = req.getParameter("postId");
 
+        User user = CurrentUserUtil.getUser(req);
 
-        HttpSession httpSession = req.getSession();
-        String login = String.valueOf(httpSession.getAttribute("login"));
-
-        commentService.save(new Comment(userDao.get(login).getId(), login, Integer.parseInt(postId), content));
+        commentService.save(new Comment(user.getId(), user.getLogin(), Integer.parseInt(postId), content));
         resp.sendRedirect("/forum");
     }
 }

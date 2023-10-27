@@ -6,12 +6,12 @@
 <#macro content>
     <div class="flex justify-center mt-20">
         <form action="upload" method="post" enctype="multipart/form-data">
-            <div class="font-medium text-pink-400 text-ml">
+            <div class="font-medium text-pink-600 text-ml">
                 Upload file:
                 <br>
-                <input type="file" name="file" class="border border-pink-400 bg-pink-50 rounded-md"/>
+                <input type="file" name="file" class="border border-pink-600 bg-pink-50 rounded-md"/>
                 <br>
-                <input type="submit" value="Upload" class="text-white rounded-md bg-pink-400 font-medium h-12 w-24
+                <input type="submit" value="Upload" class="text-white rounded-md bg-pink-600 font-medium h-12 w-24
                 mx-20 my-14 text-ml text-center">
             </div>
         </form>

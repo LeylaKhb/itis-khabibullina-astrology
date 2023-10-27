@@ -84,7 +84,7 @@
 <#macro content>
     <div class="ml-3 mt-3">
         <a href="/">
-            <button class="text-white rounded-md bg-pink-400 font-medium h-10 w-20 text-ml text-center" >
+            <button class="text-white rounded-md bg-pink-600 font-medium h-10 w-20 text-ml text-center" >
                 Back
             </button>
         </a>
@@ -92,21 +92,21 @@
 
     <div class="flex justify-center mt-20">
         <form action="registration" method="post">
-            <div class="font-medium text-pink-400 text-ml">
+            <div class="font-medium text-pink-600 text-ml">
                 Login:
-                <input required type="text" name="login" placeholder="login" class="border border-pink-400 bg-pink-50
+                <input required type="text" name="login" placeholder="login" class="border border-pink-600 bg-pink-50
                 rounded-md"/>
-                <div class="text-gray-400 text-xs">
-                    Login should be unique
+                <div class="text-gray-600 text-xs">
+                    Login should be unique. You won't be able to change it later
                 </div>
             </div>
             <br>
 
-            <div class="font-medium text-pink-400 text-ml">
+            <div class="font-medium text-pink-600 text-ml">
                 Password:
-                <input id="password" required type="password" placeholder="password" name="password" class="border border-pink-400
+                <input id="password" required type="password" placeholder="password" name="password" class="border border-pink-600
                 bg-pink-50 rounded-md"/>
-                <div id="passwordValidation" class="text-gray-400 text-xs">
+                <div id="passwordValidation" class="text-gray-600 text-xs">
                     Password should have minimum 8 characters and
                     <br>
                     contain at least one small letter, capital letter,
@@ -122,48 +122,48 @@
             </div>
             <br>
 
-            <div  class="font-medium text-pink-400 text-ml">
+            <div  class="font-medium text-pink-600 text-ml">
                 Date of birth:
-                <input required type="date" id="dateOfBirth" name="dateOfBirth" class="border border-pink-400
+                <input required type="date" id="dateOfBirth" name="dateOfBirth" class="border border-pink-600
                 bg-pink-50 rounded-md"/>
             </div>
             <br>
 
-            <div  class="font-medium text-pink-400 text-ml">
+            <div  class="font-medium text-pink-600 text-ml">
                 Zodiac sign:
-                <input readonly id="zodiacSign" type="text" name="zodiacSign" class="border border-pink-400 bg-pink-50
+                <input readonly id="zodiacSign" type="text" name="zodiacSign" class="border border-pink-600 bg-pink-50
                 rounded-md"/>
             </div>
             <br>
 
-            <div class="font-medium text-pink-400 text-ml">
+            <div class="font-medium text-pink-600 text-ml">
                 Name:
-                <input required type="text" placeholder="name" name="name" class="border border-pink-400 bg-pink-50
+                <input required type="text" placeholder="name" name="name" class="border border-pink-600 bg-pink-50
                 rounded-md"/>
             </div>
             <br>
 
-            <div class="font-medium text-pink-400 text-ml">
+            <div class="font-medium text-pink-600 text-ml">
                 City:
-                <input required id="city" type="text" placeholder="city" name="city" class="border border-pink-400 bg-pink-50
+                <input required id="city" type="text" placeholder="city" name="city" class="border border-pink-600 bg-pink-50
                 rounded-md"/>
                 <div hidden="hidden" id="cityIncorrect" class="text-red-400 text-xs">
                     City isn't correct
                 </div>
             </div>
 
-            <div class="font-medium text-pink-400 text-ml mt-2">
+            <div class="font-medium text-pink-600 text-ml mt-2">
                 <input type="checkbox" name="remember">Remember me</input>
             </div>
             <br>
 
-            <input id="regButton" type="submit" value="Registration" class="text-white rounded-md bg-pink-400 font-medium h-12 w-24
+            <input id="regButton" type="submit" value="Registration" class="text-white rounded-md bg-pink-600 font-medium h-12 w-24
             mx-20 my-14 text-ml text-center"/>
         </form>
     </div>
 
     <#if userExist??>
-        <div class="text-pink-400 w-full flex items-center justify-center font-medium text-xl">
+        <div class="text-pink-600 w-full flex items-center justify-center font-medium text-xl">
             User with this login exist, please use another login
         </div>
     </#if>

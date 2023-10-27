@@ -7,6 +7,7 @@ import itis.khabibullina.model.Friend;
 import itis.khabibullina.model.User;
 import itis.khabibullina.service.FriendService;
 import itis.khabibullina.service.impl.FriendServiceImpl;
+import itis.khabibullina.util.CurrentUserUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,10 +33,7 @@ public class AddFriendServlet extends HttpServlet {
         String name = req.getParameter("name");
         String city = req.getParameter("city");
 
-        HttpSession httpSession = req.getSession();
-        String login = String.valueOf(httpSession.getAttribute("login"));
-
-        User user = userDao.get(login);
+        User user = CurrentUserUtil.getUser(req);
 
         Friend friend = new Friend(user.getId(), dateOfBirth, zodiacSign, name, city);
         friendService.save(friend);

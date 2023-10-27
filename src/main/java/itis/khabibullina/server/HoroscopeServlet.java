@@ -7,6 +7,7 @@ import itis.khabibullina.client.HttpClientImpl;
 import itis.khabibullina.dao.UserDao;
 import itis.khabibullina.dao.impl.UserDaoImpl;
 import itis.khabibullina.model.User;
+import itis.khabibullina.util.CurrentUserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,27 +27,22 @@ public class HoroscopeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        HttpSession httpSession = req.getSession(false);
-        if (httpSession == null) {
-            resp.sendRedirect("/login");
-        } else {
-            String login = String.valueOf(httpSession.getAttribute("login"));
-            User user = userDao.get(login);
-            String zodiacSign = user.getZodiacSign();
+        User user = CurrentUserUtil.getUser(req);
+        String zodiacSign = user.getZodiacSign();
 
-            HttpClient httpClient = new HttpClientImpl();
-            Map<String, String> params = new HashMap<>();
-            params.put("day", "today");
-            params.put("sunsign", zodiacSign.toLowerCase());
-            String horoscope = httpClient.get("https://horoscope-astrology.p.rapidapi.com/horoscope",
-                    params);
+        HttpClient httpClient = new HttpClientImpl();
+        Map<String, String> params = new HashMap<>();
+        params.put("day", "today");
+        params.put("sunsign", zodiacSign.toLowerCase());
+        String horoscope = httpClient.get("https://horoscope-astrology.p.rapidapi.com/horoscope",
+                params);
 
-            JsonObject horoscopeJSON = new JsonParser().parse(horoscope).getAsJsonObject();
-            String message = String.valueOf(horoscopeJSON.get("horoscope"));
+        JsonObject horoscopeJSON = new JsonParser().parse(horoscope).getAsJsonObject();
+        String message = String.valueOf(horoscopeJSON.get("horoscope"));
 
-            req.setAttribute("horoscope", message);
-            req.setAttribute("zodiacSign", zodiacSign);
-            req.getRequestDispatcher("horoscope.ftl").forward(req, resp);
-        }
+        req.setAttribute("horoscope", message);
+        req.setAttribute("zodiacSign", zodiacSign);
+        req.getRequestDispatcher("horoscope.ftl").forward(req, resp);
+
     }
 }

@@ -14,6 +14,7 @@ import itis.khabibullina.service.FriendService;
 import itis.khabibullina.service.UserService;
 import itis.khabibullina.service.impl.FriendServiceImpl;
 import itis.khabibullina.service.impl.UserServiceImpl;
+import itis.khabibullina.util.CurrentUserUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,10 +34,7 @@ public class CompatibilityServlet extends HttpServlet {
     private final UserDao<User> userDao = new UserDaoImpl();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        HttpSession httpSession = req.getSession();
-        String login = String.valueOf(httpSession.getAttribute("login"));
-
-        User user = userDao.get(login);
+        User user = CurrentUserUtil.getUser(req);
 
         req.setAttribute("friends", friendService.getAllByUserId(user.getId()));
         req.getRequestDispatcher("compatibility.ftl").forward(req, resp);
@@ -45,11 +43,7 @@ public class CompatibilityServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String friendName = req.getParameter("friend");
-
-        HttpSession httpSession = req.getSession();
-        String login = String.valueOf(httpSession.getAttribute("login"));
-
-        User user = userDao.get(login);
+        User user = CurrentUserUtil.getUser(req);
 
         List<FriendDto> friendDtoList = friendService.getAllByUserId(user.getId());
         for (FriendDto friendDto : friendDtoList) {

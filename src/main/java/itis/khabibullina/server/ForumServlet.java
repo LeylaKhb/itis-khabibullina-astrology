@@ -7,6 +7,7 @@ import itis.khabibullina.model.Post;
 import itis.khabibullina.model.User;
 import itis.khabibullina.service.*;
 import itis.khabibullina.service.impl.*;
+import itis.khabibullina.util.CurrentUserUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,13 +46,10 @@ public class ForumServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String content = req.getParameter("content");
-        HttpSession httpSession = req.getSession(false);
-        String login = String.valueOf(httpSession.getAttribute("login"));
-
+        User user = CurrentUserUtil.getUser(req);
         Date date = new Date(System.currentTimeMillis());
-        User user = userDao.get(login);
 
-        postService.save(new Post(user.getId(), login, content, date));
+        postService.save(new Post(user.getId(), user.getLogin(), content, date));
         resp.sendRedirect("/forum");
 
     }

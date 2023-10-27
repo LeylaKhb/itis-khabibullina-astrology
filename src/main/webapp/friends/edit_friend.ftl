@@ -53,7 +53,7 @@
 <#macro content>
     <div class="ml-3 mt-3">
         <a href="/friends">
-            <button class="text-white rounded-md bg-pink-400 font-medium h-10 w-20 text-ml text-center" >
+            <button class="text-white rounded-md bg-pink-600 font-medium h-10 w-20 text-ml text-center" >
                 Back
             </button>
         </a>
@@ -61,41 +61,41 @@
 
     <div class="flex items-center justify-center mt-32 flex-col">
         <form action="editFriend" method="post">
-            <div class="text-xl text-pink-400 font-medium">
+            <div class="text-xl text-pink-600 font-medium">
                 Edit friends:
             </div>
             <br>
 
-            <div class="font-medium text-pink-400 text-ml">
+            <div class="font-medium text-pink-600 text-ml">
                 Name:
-                <input type="text" value=${friend.name} name="name" class="border border-pink-400
+                <input type="text" value=${friend.name} name="name" class="border border-pink-600
             bg-pink-50 rounded-md"/>
             </div>
             <br>
 
-            <div class="font-medium text-pink-400 text-ml">
+            <div class="font-medium text-pink-600 text-ml">
                 Date of birth:
-                <input type="date" id="dateOfBirth" value=${dateOfBirth} name="dateOfBirth" class="border border-pink-400 bg-pink-50
+                <input type="date" id="dateOfBirth" value=${dateOfBirth} name="dateOfBirth" class="border border-pink-600 bg-pink-50
             rounded-md"/>
             </div>
             <br>
 
-            <div class="font-medium text-pink-400 text-ml">
+            <div class="font-medium text-pink-600 text-ml">
                 Zodiac sign:
-                <input readonly type="text" id="zodiacSign" value=${friend.zodiacSign} name="zodiacSign" class="border border-pink-400
+                <input readonly type="text" id="zodiacSign" value=${friend.zodiacSign} name="zodiacSign" class="border border-pink-600
             bg-pink-50 rounded-md"/>
             </div>
             <br>
 
-            <div class="font-medium text-pink-400 text-ml">
+            <div class="font-medium text-pink-600 text-ml">
                 City:
-                <input id="city" type="text" placeholder="city" value=${friend.city} name="city" class="border border-pink-400
+                <input id="city" type="text" placeholder="city" value=${friend.city} name="city" class="border border-pink-600
             bg-pink-50 rounded-md"/>
             </div>
 
             <input hidden="hidden" name="id" value=${friend.id}  >
 
-            <input type="submit" value="Edit" class="text-white rounded-md bg-pink-400 font-medium h-12 w-24 mx-20
+            <input type="submit" value="Edit" class="text-white rounded-md bg-pink-600 font-medium h-12 w-24 mx-20
         mt-3 text-ml text-center" />
             <br>
 

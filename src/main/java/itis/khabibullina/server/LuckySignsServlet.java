@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @WebServlet(name = "luckySignsServlet", urlPatterns = "/luckySigns")
@@ -52,6 +53,7 @@ public class LuckySignsServlet extends HttpServlet {
             luckyZodiacSigns = zodiacSignLuckService.getAllByName(sign);
         }
 
+        Collections.reverse(luckyZodiacSigns);
 
         req.setAttribute("zodiacSigns", zodiacSigns);
         req.setAttribute("luckyZodiacSigns", luckyZodiacSigns);

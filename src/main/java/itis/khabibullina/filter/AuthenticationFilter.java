@@ -45,7 +45,7 @@ public class AuthenticationFilter implements Filter {
         if (cookieFound) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            if (httpSession.getAttribute("login") == null) {
+            if (httpSession == null || httpSession.getAttribute("login") == null) {
                 ((HttpServletResponse) servletResponse).sendRedirect("/login");
             } else {
                 filterChain.doFilter(servletRequest, servletResponse);

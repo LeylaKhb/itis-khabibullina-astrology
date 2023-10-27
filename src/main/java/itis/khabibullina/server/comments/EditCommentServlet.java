@@ -11,6 +11,7 @@ import itis.khabibullina.service.FriendService;
 import itis.khabibullina.service.CommentService;
 import itis.khabibullina.service.impl.FriendServiceImpl;
 import itis.khabibullina.service.impl.CommentServiceImpl;
+import itis.khabibullina.util.CurrentUserUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,10 +37,7 @@ public class EditCommentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String content = req.getParameter("content");
         int id = Integer.parseInt(req.getParameter("id"));
-        HttpSession httpSession = req.getSession();
-        String login = String.valueOf(httpSession.getAttribute("login"));
-
-        User user = userDao.get(login);
+        User user = CurrentUserUtil.getUser(req);
 
         Comment comment = new Comment(id, content);
         commentService.update(comment);

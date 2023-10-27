@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto get(String login) {
         User u = dao.get(login);
+        if (u == null) return null;
         return new UserDto(u.getName(), u.getDateOfBirth(), u.getZodiacSign(), u.getCity(), u.getLogin(), u.getPassword());
     }
 

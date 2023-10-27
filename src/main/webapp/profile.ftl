@@ -51,6 +51,23 @@
         }
     };
 
+    let editPasswordButton = document.getElementById("editPasswordButton")
+    let passwordField = document.getElementById("password");
+    let passwordCorrectField = document.getElementById("passwordCorrect");
+    let passwordIncorrectField = document.getElementById("passwordIncorrect");
+    passwordField.onchange = function() {
+        let password = passwordField.value;
+        if (password.match(/(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g)) {
+            passwordIncorrectField.hidden = true;
+            passwordCorrectField.hidden = false;
+            editPasswordButton.disabled = false;
+        } else {
+            passwordIncorrectField.hidden = false;
+            passwordCorrectField.hidden = true;
+            editPasswordButton.disabled = true;
+        }
+    }
+
     let cityField = document.getElementById("city");
     let cityIncorrectField = document.getElementById("cityIncorrect");
     cityField.onchange = function() {
@@ -68,69 +85,126 @@
 <#macro content>
         <div class="ml-3 mt-3">
             <a href="/">
-                <button class="text-white rounded-md bg-pink-400 font-medium h-10 w-20 text-ml text-center" >
+                <button class="text-white rounded-md bg-pink-600 font-medium h-10 w-20 text-ml text-center" >
                     Back
                 </button>
             </a>
         </div>
 
     <div class="w-full items-center justify-between flex">
-        <div class="w-1/3 flex items-center justify-center mt-32 flex-col">
+        <div class="w-1/4 flex items-center justify-center mt-32 flex-col">
             <form action="profile" method="post">
-                <div class="text-xl text-pink-400 font-medium">
+                <div class="text-xl text-pink-600 font-medium">
                     Edit profile:
                 </div>
                 <br>
-                <div class="font-medium text-pink-400 text-ml">
-                    Login:
-                    <input type="text" value=${user.login} name="login" class="border border-pink-400
-                bg-pink-50 rounded-md"/>
+                <div class="font-medium text-pink-600 text-ml">
+                    Login: ${user.login}
                 </div>
                 <br>
 
-                <div class="font-medium text-pink-400 text-ml">
-                    Password:
-                    <input type="password" value=${user.password} placeholder="password" name="password" class="border
-                border-pink-400 bg-pink-50 rounded-md"/>
-                </div>
-                <br>
-
-                <div class="font-medium text-pink-400 text-ml">
+                <div class="font-medium text-pink-600 text-ml">
                     Date of birth:
-                    <input type="date" id="dateOfBirth" value=${dateOfBirth} name="dateOfBirth" class="border border-pink-400 bg-pink-50
+                    <input type="date" id="dateOfBirth" value=${dateOfBirth} name="dateOfBirth" class="border border-pink-600 bg-pink-50
                 rounded-md"/>
                 </div>
                 <br>
 
-                <div class="font-medium text-pink-400 text-ml">
+                <div class="font-medium text-pink-600 text-ml">
                     Zodiac sign:
-                    <input readonly type="text" id="zodiacSign" value=${user.zodiacSign} name="zodiacSign" class="border border-pink-400
+                    <input readonly type="text" id="zodiacSign" value=${user.zodiacSign} name="zodiacSign" class="border border-pink-600
                 bg-pink-50 rounded-md"/>
                 </div>
                 <br>
 
-                <div class="font-medium text-pink-400 text-ml">
+                <div class="font-medium text-pink-600 text-ml">
                     Name:
-                    <input type="text" value=${user.name} name="name" class="border border-pink-400
+                    <input type="text" value=${user.name} name="name" class="border border-pink-600
                 bg-pink-50 rounded-md"/>
                 </div>
                 <br>
 
-                <div class="font-medium text-pink-400 text-ml">
+                <div class="font-medium text-pink-600 text-ml">
                     City:
-                    <input id="city" type="text" placeholder="city" value=${user.city} name="city" class="border border-pink-400
+                    <input id="city" type="text" placeholder="city" value=${user.city} name="city" class="border border-pink-600
                 bg-pink-50 rounded-md"/>
                 </div>
+                <div hidden="hidden" id="cityIncorrect" class="text-red-400 text-xs">
+                    City isn't correct
+                </div>
 
-                <input id="editButton" type="submit" value="Edit" class="text-white rounded-md bg-pink-400 font-medium h-12 w-24 mx-20
+                <input id="editButton" type="submit" value="Edit" class="text-white rounded-md bg-pink-600 font-medium h-12 w-24 mx-20
             mt-3 text-ml text-center" />
                 <br>
 
             </form>
 
+            <#if userExist??>
+                <div class="text-pink-600 w-full flex items-center justify-center font-medium text-xl">
+                    User with this login exist, please use another login
+                </div>
+            </#if>
+        </div>
+
+        <div class="w-1/4 items-center justify-between flex flex-col">
+            <form action="editPassword" method="post">
+                <div class="font-medium text-pink-600 text-ml">
+                    Old password:
+                    <input type="password" placeholder="password" name="oldPassword" class="border
+                    border-pink-600 bg-pink-50 rounded-md"/>
+                </div>
+                <br>
+
+                <div class="font-medium text-pink-600 text-ml">
+                    New password:
+                    <input id="password" type="password" placeholder="password" name="newPassword" class="border
+                    border-pink-600 bg-pink-50 rounded-md"/>
+                </div>
+
+                <div id="passwordValidation" class="text-gray-600 text-xs">
+                    Password should have minimum 8 characters and
+                    <br>
+                    contain at least one small letter, capital letter,
+                    <br>
+                    digit and special symbol from [!@#$%^&*]
+                </div>
+                <div hidden="hidden" id="passwordCorrect" class="text-green-400 text-xs">
+                    Password is correct
+                </div>
+                <div hidden="hidden" id="passwordIncorrect" class="text-red-400 text-xs">
+                    Password isn't correct
+                </div>
+
+                <input id="editPasswordButton" type="submit" value="Edit password" class="text-white rounded-md
+                bg-pink-600 font-medium h-12 w-28 mx-20
+                mt-3 text-ml text-center" />
+                <br>
+            </form>
+
+            <#if wrongPassword?? >
+                <div class="text-pink-600 w-full flex items-center justify-center font-medium text-xl">
+                    Wrong password
+                </div>
+            </#if>
+
+            <#if changedPassword?? >
+                <div class="text-pink-600 w-full flex items-center justify-center font-medium text-xl">
+                    Password was changed successfully
+                </div>
+            </#if>
+        </div>
+
+        <div class="w-1/4 items-center justify-between flex flex-col">
+            <a href="/friends">
+                <button class="text-white rounded-md bg-pink-600 font-medium h-12 w-24 mx-20 mt-3 text-ml
+                text-center">
+                    My friends
+                </button>
+            </a>
+
             <div>
                 <a href="/logout">
-                    <button class="text-white rounded-md bg-pink-400 font-medium h-12 w-24 mx-20 mt-3 text-ml
+                    <button class="text-white rounded-md bg-pink-600 font-medium h-12 w-24 mx-20 mt-3 text-ml
                 text-center">
                         Logout
                     </button>
@@ -138,16 +212,7 @@
             </div>
         </div>
 
-        <div class="w-1/3 items-center justify-between flex flex-col">
-            <a href="/friends">
-                <button class="text-white rounded-md bg-pink-400 font-medium h-12 w-24 mx-20 mt-3 text-ml
-                text-center">
-                    My friends
-                </button>
-            </a>
-        </div>
-
-        <div class="w-1/3 items-center justify-between flex flex-col">
+        <div class="w-1/4 items-center justify-between flex flex-col">
             <#if imageUrl??>
                 <img class="w-36 object-contain" src=${imageUrl} />
             </#if>
@@ -157,7 +222,7 @@
             </#if>
 
             <a href="/upload">
-                <button class="text-white rounded-md bg-pink-400 font-medium h-12 w-24 mx-20 mt-3 text-ml
+                <button class="text-white rounded-md bg-pink-600 font-medium h-12 w-24 mx-20 mt-3 text-ml
                 text-center">
                     Edit photo
                 </button>

@@ -6,6 +6,7 @@ import itis.khabibullina.dto.UserDto;
 import itis.khabibullina.model.User;
 import itis.khabibullina.service.UserService;
 import itis.khabibullina.service.impl.UserServiceImpl;
+import itis.khabibullina.util.CurrentUserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,10 +27,9 @@ public class PersonalAccountServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        HttpSession httpSession = req.getSession(false);
-        String login = String.valueOf(httpSession.getAttribute("login"));
-        req.setAttribute("user", userService.get(login));
-        req.setAttribute("dateOfBirth", String.valueOf(userService.get(login).getDateOfBirth()));
+        User user = CurrentUserUtil.getUser(req);
+        req.setAttribute("user", user);
+        req.setAttribute("dateOfBirth", String.valueOf(user.getDateOfBirth()));
 
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
@@ -49,33 +49,20 @@ public class PersonalAccountServlet extends HttpServlet {
     }
 
     static void addAndUpdateUser(HttpServletRequest req, HttpServletResponse resp, String method) throws IOException, ServletException {
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
         Date dateOfBirth = Date.valueOf(req.getParameter("dateOfBirth"));
         String zodiacSign = req.getParameter("zodiacSign");
         String name = req.getParameter("name");
         String city = req.getParameter("city");
 
         if (method.equals("update")) {
-            HttpSession httpSession = req.getSession(false);
-            String oldLogin = String.valueOf(httpSession.getAttribute("login"));
-            User user = userDao.get(oldLogin);
-            boolean userExist = false;
-            if (!oldLogin.equals(user.getLogin())) {
-                User newUser = userDao.get(login);
-                if (newUser != null) {
-                    req.setAttribute("userExist", true);
-                    req.getRequestDispatcher("profile.ftl").forward(req, resp);
-                    userExist = true;
-                }
-            }
-            if (!userExist) {
-                userService.update(new User(
-                        user.getId(), login, password, dateOfBirth, zodiacSign, name, city
-                ));
-                resp.sendRedirect("/profile");
-            }
+            User user = CurrentUserUtil.getUser(req);
+            userService.update(new User(
+                    user.getId(), user.getLogin(), user.getPassword(), dateOfBirth, zodiacSign, name, city));
+//            req.setAttribute("user", user);
+            req.getRequestDispatcher("profile.ftl").forward(req, resp);
         } else {
+            String login = req.getParameter("login");
+            String password = req.getParameter("password");
             userService.save(new User(
                     login, password, dateOfBirth, zodiacSign, name, city
             ));

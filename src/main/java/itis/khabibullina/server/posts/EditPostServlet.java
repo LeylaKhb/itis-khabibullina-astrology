@@ -1,16 +1,11 @@
 package itis.khabibullina.server.posts;
 
-import itis.khabibullina.dao.UserDao;
-import itis.khabibullina.dao.impl.UserDaoImpl;
-import itis.khabibullina.dto.FriendDto;
 import itis.khabibullina.dto.PostDto;
-import itis.khabibullina.model.Friend;
 import itis.khabibullina.model.Post;
 import itis.khabibullina.model.User;
-import itis.khabibullina.service.FriendService;
 import itis.khabibullina.service.PostService;
-import itis.khabibullina.service.impl.FriendServiceImpl;
 import itis.khabibullina.service.impl.PostServiceImpl;
+import itis.khabibullina.util.CurrentUserUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +17,6 @@ import java.sql.Date;
 
 public class EditPostServlet extends HttpServlet {
     private final PostService postService = new PostServiceImpl();
-    private static final UserDao<User> userDao = new UserDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -38,12 +32,8 @@ public class EditPostServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         Date date = new Date(System.currentTimeMillis());
 
-        HttpSession httpSession = req.getSession();
-        String login = String.valueOf(httpSession.getAttribute("login"));
-
-        User user = userDao.get(login);
-
-        Post post = new Post(id, user.getId(), login, content, date);
+        User user = CurrentUserUtil.getUser(req);
+        Post post = new Post(id, user.getId(), user.getLogin(), content, date);
         postService.update(post);
 
         resp.sendRedirect("/forum");
